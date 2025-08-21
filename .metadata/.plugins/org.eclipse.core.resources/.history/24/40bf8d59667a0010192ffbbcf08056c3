@@ -1,0 +1,5 @@
+package com.devanshu.web.model;
+
+public class Techie {
+
+}

@@ -1,0 +1,51 @@
+package com.devanshu;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import jakarta.servlet.annotation.WebServlet;
+
+/**
+ * Servlet implementation class FileUpload
+ */
+@WebServlet("/upload")
+public class FileUpload extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public FileUpload() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
+			List<FileItem> multipleFiles = sf.parseRequest(request);
+			
+			for(FileItem item : multipleFiles) {
+				item.write(new File("C:\\Users\\devan\\Desktop\\Studies\\Programming\\servlet\\Proj-02-FileUploadDemo\\" + item.getName()));
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	}
+
+}

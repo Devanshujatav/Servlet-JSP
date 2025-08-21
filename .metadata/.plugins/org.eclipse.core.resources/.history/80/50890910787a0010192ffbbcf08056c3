@@ -1,0 +1,35 @@
+package com.devanshu.web.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.devanshu.web.model.Techie;
+
+public class TechieDAO {
+	public Techie getTechie(int aid) {
+		Techie a = new Techie();
+		
+		String url = "jdbc:mysql://localhost:3306/mydatabase";
+		String username = "root";
+		String password = "djSql@10";
+		String sql = "SELECT * FROM techies WHERE aid="+aid;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url , username , password);
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				a.setAid(rs.getInt("aid"));
+				a.setAname(rs.getString("aname"));
+				a.setTech(rs.getString("tech"));
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return a;
+	}
+}
